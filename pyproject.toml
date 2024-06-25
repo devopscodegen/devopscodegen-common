@@ -5,6 +5,7 @@ description = "Parent python package containing common python modules for all de
 authors = ["Sagar Velankar <sagar.velankar@gmail.com>"]
 license = "MIT"
 readme = "README.md"
+repository = "https://github.com/devops-code-generators/devops-code-generator"
 keywords = ["devops", "code-generator", "devops-platform", "langchain", "genai"]
 classifiers = [
     "Development Status :: 1 - Planning",
