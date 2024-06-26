@@ -16,10 +16,6 @@ class GitSourceCodeRepository(SourceCodeRepository):
         super().__init__(path)
         self.set_url(url)
         self.set_branch(branch)
-        self.set_language(None)
-        self.set_dependency_manifest(None)
-        self.set_dependency_manifest_content(None)
-        self.set_dependency_management_tool(None)
 
     def get_url(self):
         """Get url"""
@@ -36,38 +32,6 @@ class GitSourceCodeRepository(SourceCodeRepository):
     def set_branch(self, branch=None):
         """Set branch"""
         self.branch = branch
-
-    def get_language(self):
-        """Get language"""
-        return self.language
-
-    def set_language(self, language=None):
-        """Set language"""
-        self.language = language
-
-    def get_dependency_manifest(self):
-        """Get dependency manifest"""
-        return self.dependency_manifest
-
-    def set_dependency_manifest(self, dependency_manifest=None):
-        """Set dependency manifest"""
-        self.dependency_manifest = dependency_manifest
-
-    def get_dependency_manifest_content(self):
-        """Get dependency manifest content"""
-        return self.dependency_manifest_content
-
-    def set_dependency_manifest_content(self, dependency_manifest_content=None):
-        """Set dependency manifest content"""
-        self.dependency_manifest_content = dependency_manifest_content
-
-    def get_dependency_management_tool(self):
-        """Get dependency management tool"""
-        return self.dependency_management_tool
-
-    def set_dependency_management_tool(self, dependency_management_tool=None):
-        """Set dependency management tool"""
-        self.dependency_management_tool = dependency_management_tool
 
     def checkout_branch(self):
         """
@@ -116,41 +80,3 @@ class GitSourceCodeRepository(SourceCodeRepository):
         print(f"Setting source code repository directory path to {path}")
         self.set_path(path)
         print(f"Set source code repository directory path to {path}")
-
-    def fnd_lang_dep_mfst_dep_mgmt_tool(self):
-        """Find language, dependency manifest and dependency management tool"""
-        language = None
-        dependency_manifest = None
-        dependency_management_tool = None
-        path = self.get_path()
-        print(
-            f"Getting files in root of git source code repository directory path {path}"
-        )
-        files = os.listdir(path)
-        if "pom.xml" in files:
-            print(
-                f"pom.xml found in root of git source code repository directory path {path}"
-            )
-            language = "java"
-            dependency_manifest = "pom.xml"
-            dependency_management_tool = "apache_maven"
-        elif "package.json" in files:
-            print(
-                f"package.json found in root of git source code repository directory path {path}"
-            )
-            language = "javascript"
-            dependency_manifest = "package.json"
-            dependency_management_tool = "npm"
-        elif "requirements.txt" in files:
-            print(
-                f"requirements.txt found in root of"
-                f" git source code repository directory path {path}"
-            )
-            language = "python"
-            dependency_manifest = "requirements.txt"
-            dependency_management_tool = "pip"
-        self.set_language(language)
-        self.set_dependency_manifest(dependency_manifest)
-        with open(os.path.join(path, dependency_manifest), "r", encoding="utf-8") as f:
-            self.set_dependency_manifest_content(f.read())
-        self.set_dependency_management_tool(dependency_management_tool)
