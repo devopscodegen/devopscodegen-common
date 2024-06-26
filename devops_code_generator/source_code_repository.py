@@ -80,20 +80,18 @@ class SourceCodeRepository(CodeRepository):
         dependency_manifest = None
         dependency_management_tool = None
         path = self.get_path()
-        print(
-            f"Getting files in root of git source code repository directory path {path}"
-        )
+        print(f"Getting files in root of source code repository directory path {path}")
         files = os.listdir(path)
         if "pom.xml" in files:
             print(
-                f"pom.xml found in root of git source code repository directory path {path}"
+                f"pom.xml found in root of source code repository directory path {path}"
             )
             language = "java"
             dependency_manifest = "pom.xml"
             dependency_management_tool = "apache_maven"
         elif "package.json" in files:
             print(
-                f"package.json found in root of git source code repository directory path {path}"
+                f"package.json found in root of source code repository directory path {path}"
             )
             language = "javascript"
             dependency_manifest = "package.json"
@@ -101,7 +99,7 @@ class SourceCodeRepository(CodeRepository):
         elif "requirements.txt" in files:
             print(
                 f"requirements.txt found in root of"
-                f" git source code repository directory path {path}"
+                f" source code repository directory path {path}"
             )
             language = "python"
             dependency_manifest = "requirements.txt"
