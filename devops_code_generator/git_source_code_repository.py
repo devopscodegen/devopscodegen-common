@@ -4,7 +4,6 @@
 """
 
 import os
-import shutil
 import tempfile
 import logging
 import git
@@ -42,7 +41,6 @@ class GitSourceCodeRepository(SourceCodeRepository):
         if source code repository directory path does not exist already
         """
         logger = logging.getLogger(__name__)
-        temp_dir_created = False
         try:
             path = self.get_path()
             url = self.get_url()
@@ -74,7 +72,6 @@ class GitSourceCodeRepository(SourceCodeRepository):
             logger.info("Git source code repository branch is defined as %s", branch)
             logger.info("Creating source code repository directory path")
             path = tempfile.mkdtemp()
-            temp_dir_created = True
             logger.info("Created source code repository directory path %s", path)
             logger.info(
                 "Cloning git url %s branch %s"
@@ -103,23 +100,3 @@ class GitSourceCodeRepository(SourceCodeRepository):
         except Exception as e:
             logger.exception("Unexpected error occurred: %s", str(e))
             raise
-        finally:
-            if temp_dir_created:
-                logger.info(
-                    "Cleaning up temporary source code repository directory path %s",
-                    path,
-                )
-                try:
-                    shutil.rmtree(path)
-                    logger.info(
-                        "Temporary source code repository directory path %s"
-                        " deleted successfully",
-                        path,
-                    )
-                except Exception as e:
-                    logger.exception(
-                        "Failed to delete temporary source code repository"
-                        " directory path %s: %s",
-                        path,
-                        str(e),
-                    )
