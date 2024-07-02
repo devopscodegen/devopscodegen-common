@@ -10,6 +10,7 @@ Usage:
 """
 
 import os
+import logging
 from devops_code_generator.code_repository import CodeRepository
 
 
@@ -76,30 +77,36 @@ class SourceCodeRepository(CodeRepository):
 
     def fnd_lang_dep_mfst_dep_mgmt_tool(self):
         """Find language, dependency manifest and dependency management tool"""
+        logger = logging.getLogger(__name__)
         language = None
         dependency_manifest = None
         dependency_management_tool = None
         path = self.get_path()
-        print(f"Getting files in root of source code repository directory path {path}")
+        logger.info(
+            "Getting files in root of source code repository directory path %s", path
+        )
         files = os.listdir(path)
         if "pom.xml" in files:
-            print(
-                f"pom.xml found in root of source code repository directory path {path}"
+            logger.info(
+                "pom.xml found in root of source code repository directory path %s",
+                path,
             )
             language = "java"
             dependency_manifest = "pom.xml"
             dependency_management_tool = "apache_maven"
         elif "package.json" in files:
-            print(
-                f"package.json found in root of source code repository directory path {path}"
+            logger.info(
+                "package.json found in root of source code repository directory path %s",
+                path,
             )
             language = "javascript"
             dependency_manifest = "package.json"
             dependency_management_tool = "npm"
         elif "requirements.txt" in files:
-            print(
-                f"requirements.txt found in root of"
-                f" source code repository directory path {path}"
+            logger.info(
+                "requirements.txt found in root of"
+                " source code repository directory path %s",
+                path,
             )
             language = "python"
             dependency_manifest = "requirements.txt"

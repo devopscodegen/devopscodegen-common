@@ -45,40 +45,52 @@ class GitSourceCodeRepository(SourceCodeRepository):
         branch = self.get_branch()
         logger.info("Checking if source code repository directory path exists")
         if path and os.path.exists(path):
-            print(
-                f"Source code repository directory path {path} already exists."
-                " Not checking out git source code repository"
+            logger.info(
+                "Source code repository directory path %s already exists."
+                " Not checking out git source code repository",
+                path,
             )
             return
-        print("Source code repository directory path does not exist")
-        print("Checking if git source code repository url is defined")
+        logger.info("Source code repository directory path does not exist")
+        logger.info("Checking if git source code repository url is defined")
         if not url or url == "":
-            print(
+            logger.info(
                 "ERROR : Source code repository directory path does not exist"
                 " and git source code repository url is not defined"
             )
             return
-        print(f"Git source code repository url is defined as {url}")
-        print("Checking if git source code repository branch is defined")
+        logger.info("Git source code repository url is defined as %s", url)
+        logger.info("Checking if git source code repository branch is defined")
         if not branch or branch == "":
-            print(
+            logger.info(
                 "ERROR : Source code repository directory path does not exist"
                 " and git source code repository branch is not defined"
             )
             return
-        print(f"Git source code repository branch is defined as {branch}")
-        print("Creating source code repository directory path")
+        logger.info("Git source code repository branch is defined as %s", branch)
+        logger.info("Creating source code repository directory path")
         path = tempfile.mkdtemp()
-        print(f"Created source code repository directory path {path}")
-        print(
-            f"Cloning git url {url} branch {branch}"
-            f" to source code repository directory path {path}"
+        logger.info("Created source code repository directory path %s", path)
+        logger.info(
+            "Cloning git url %s branch %s"
+            " to source code repository directory path %s",
+            url,
+            branch,
+            path,
         )
         git.Repo.clone_from(url=url, to_path=path, branch=branch)
-        print(
-            f"Cloned git url {url} branch {branch}"
-            f" to source code repository directory path {path}"
+        logger.info(
+            "Cloned git url %s branch %s"
+            " to source code repository directory path %s",
+            url,
+            branch,
+            path,
         )
-        print(f"Setting source code repository directory path to {path}")
+        logger.info("Setting source code repository directory path to %s", path)
         self.set_path(path)
-        print(f"Set source code repository directory path to {path}")
+        logger.info("Set source code repository directory path to %s", path)
+
+        # Logger.exception() creates a log message similar to Logger.error().
+        # The difference is that Logger.exception() dumps a stack trace along with it.
+        # Call this method only from an exception handler.
+        # logger.exception("")
