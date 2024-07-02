@@ -75,44 +75,71 @@ class SourceCodeRepository(CodeRepository):
         """Set dependency management tool"""
         self.dependency_management_tool = dependency_management_tool
 
+    # pylint: disable=W0718
     def fnd_lang_dep_mfst_dep_mgmt_tool(self):
         """Find language, dependency manifest and dependency management tool"""
         logger = logging.getLogger(__name__)
         language = None
         dependency_manifest = None
         dependency_management_tool = None
-        path = self.get_path()
-        logger.info(
-            "Getting files in root of source code repository directory path %s", path
-        )
-        files = os.listdir(path)
-        if "pom.xml" in files:
+        try:
+            path = self.get_path()
             logger.info(
-                "pom.xml found in root of source code repository directory path %s",
+                "Getting files in root of source code repository directory path %s",
                 path,
             )
-            language = "java"
-            dependency_manifest = "pom.xml"
-            dependency_management_tool = "apache_maven"
-        elif "package.json" in files:
-            logger.info(
-                "package.json found in root of source code repository directory path %s",
-                path,
+            files = os.listdir(path)
+            if "pom.xml" in files:
+                logger.info(
+                    "pom.xml found in root of source code repository directory path %s",
+                    path,
+                )
+                language = "java"
+                dependency_manifest = "pom.xml"
+                dependency_management_tool = "apache_maven"
+            elif "package.json" in files:
+                logger.info(
+                    "package.json found in root of source code repository directory path %s",
+                    path,
+                )
+                language = "javascript"
+                dependency_manifest = "package.json"
+                dependency_management_tool = "npm"
+            elif "requirements.txt" in files:
+                logger.info(
+                    "requirements.txt found in root of"
+                    " source code repository directory path %s",
+                    path,
+                )
+                language = "python"
+                dependency_manifest = "requirements.txt"
+                dependency_management_tool = "pip"
+            self.set_language(language)
+            self.set_dependency_manifest(dependency_manifest)
+            if dependency_manifest:
+                try:
+                    with open(
+                        os.path.join(path, dependency_manifest), "r", encoding="utf-8"
+                    ) as f:
+                        self.set_dependency_manifest_content(f.read())
+                except FileNotFoundError:
+                    logger.exception(
+                        "Dependency manifest file %s not found in %s",
+                        dependency_manifest,
+                        path,
+                    )
+                except IOError as e:
+                    logger.exception(
+                        "Error reading dependency manifest file %s in %s: %s",
+                        dependency_manifest,
+                        path,
+                        str(e),
+                    )
+            self.set_dependency_management_tool(dependency_management_tool)
+
+        except Exception as e:
+            logger.exception(
+                "An error occurred while finding language, dependency manifest,"
+                " and dependency management tool: %s",
+                str(e),
             )
-            language = "javascript"
-            dependency_manifest = "package.json"
-            dependency_management_tool = "npm"
-        elif "requirements.txt" in files:
-            logger.info(
-                "requirements.txt found in root of"
-                " source code repository directory path %s",
-                path,
-            )
-            language = "python"
-            dependency_manifest = "requirements.txt"
-            dependency_management_tool = "pip"
-        self.set_language(language)
-        self.set_dependency_manifest(dependency_manifest)
-        with open(os.path.join(path, dependency_manifest), "r", encoding="utf-8") as f:
-            self.set_dependency_manifest_content(f.read())
-        self.set_dependency_management_tool(dependency_management_tool)
