@@ -5,6 +5,7 @@
 
 import os
 import tempfile
+import logging
 import git
 from devops_code_generator.source_code_repository import SourceCodeRepository
 
@@ -38,10 +39,11 @@ class GitSourceCodeRepository(SourceCodeRepository):
         Cloning git url branch to source code repository directory path
         if source code repository directory path does not exist already
         """
+        logger = logging.getLogger(__name__)
         path = self.get_path()
         url = self.get_url()
         branch = self.get_branch()
-        print("Checking if source code repository directory path exists")
+        logger.info("Checking if source code repository directory path exists")
         if path and os.path.exists(path):
             print(
                 f"Source code repository directory path {path} already exists."
