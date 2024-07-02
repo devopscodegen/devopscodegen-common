@@ -128,6 +128,7 @@ class SourceCodeRepository(CodeRepository):
                         dependency_manifest,
                         path,
                     )
+                    raise
                 except IOError as e:
                     logger.exception(
                         "Error reading dependency manifest file %s in %s: %s",
@@ -135,6 +136,7 @@ class SourceCodeRepository(CodeRepository):
                         path,
                         str(e),
                     )
+                    raise
             self.set_dependency_management_tool(dependency_management_tool)
 
         except Exception as e:
@@ -143,3 +145,4 @@ class SourceCodeRepository(CodeRepository):
                 " and dependency management tool: %s",
                 str(e),
             )
+            raise

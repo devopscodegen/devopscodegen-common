@@ -96,10 +96,13 @@ class GitSourceCodeRepository(SourceCodeRepository):
             logger.info("Set source code repository directory path to %s", path)
         except git.GitError as e:
             logger.exception("Git error occurred: %s", str(e))
+            raise
         except OSError as e:
             logger.exception("OS error occurred: %s", str(e))
+            raise
         except Exception as e:
             logger.exception("Unexpected error occurred: %s", str(e))
+            raise
         finally:
             if temp_dir_created:
                 logger.info(
