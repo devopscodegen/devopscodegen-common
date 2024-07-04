@@ -36,3 +36,14 @@ class DevopsCodeGeneratorOutputParser(BaseCumulativeTransformOutputParser[Any]):
             return v_dict
         except Exception as e:
             raise OutputParserException(error=e, llm_output=text) from e
+
+    def parse(self, text: str) -> Any:
+        """Parse the output of an LLM call to a JSON object.
+
+        Args:
+            text: The output of the LLM call.
+
+        Returns:
+            The parsed JSON object.
+        """
+        return self.parse_result([Generation(text=text)])
