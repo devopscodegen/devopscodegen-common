@@ -1,0 +1,38 @@
+"""
+Parse a list of model Generations into a python dictionary
+"""
+
+import re
+
+from typing import Any, List
+
+from langchain_core.exceptions import OutputParserException
+from langchain_core.output_parsers import BaseCumulativeTransformOutputParser
+from langchain_core.outputs import Generation
+
+
+class DevopsCodeGeneratorOutputParser(BaseCumulativeTransformOutputParser[Any]):
+    """
+    Parse a list of model Generations into a python dictionary
+    """
+
+    def parse_result(self, result: List[Generation], *, partial: bool = False) -> Any:
+        """
+        Parse a list of model Generations into a python dictionary
+        """
+        try:
+            if len(result) != 1:
+                raise NotImplementedError(
+                    "This output parser can only be used with a single generation."
+                )
+            text = result[0].text
+            text = text.strip()
+            pattern = r"```(\w+)_begin\s*(.*?)\s*```(\w+)_end"
+            matches = re.findall(pattern, text, re.DOTALL)
+            v_dict = {}
+            for match in matches:
+                if match[0] == match[2]:
+                    v_dict[match[0]] = match[1].strip()
+            return v_dict
+        except Exception as e:
+            raise OutputParserException(error=e, llm_output=text) from e
