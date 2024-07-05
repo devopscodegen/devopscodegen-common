@@ -16,10 +16,6 @@ class DevopsCodeGeneratorOutputParser(BaseCumulativeTransformOutputParser[Any]):
     Parse a list of model Generations into a python dictionary
     """
 
-    def __init__(self):
-        super().__init__()
-        self.pattern = r"```(\w+)_begin\s*(.*?)\s*```(\w+)_end"
-
     def parse_result(self, result: List[Generation], *, partial: bool = False) -> Any:
         """
         Parse a list of model Generations into a python dictionary
@@ -31,7 +27,8 @@ class DevopsCodeGeneratorOutputParser(BaseCumulativeTransformOutputParser[Any]):
                 )
             text = result[0].text
             text = text.strip()
-            matches = re.findall(self.pattern, text, re.DOTALL)
+            pattern = r"```(\w+)_begin\s*(.*?)\s*```(\w+)_end"
+            matches = re.findall(pattern, text, re.DOTALL)
             if partial and matches:
                 matches = matches[-1:]
             v_dict = {}
