@@ -16,6 +16,10 @@ class DevopsCodeGeneratorOutputParser(BaseCumulativeTransformOutputParser[Any]):
     Parse a list of model Generations into a python dictionary
     """
 
+    def __init__(self):
+        super().__init__()
+        self.pattern = r"```(\w+)_begin\s*(.*?)\s*```(\w+)_end"
+
     def parse_result(self, result: List[Generation], *, partial: bool = False) -> Any:
         """
         Parse a list of model Generations into a python dictionary
@@ -27,13 +31,18 @@ class DevopsCodeGeneratorOutputParser(BaseCumulativeTransformOutputParser[Any]):
                 )
             text = result[0].text
             text = text.strip()
-            pattern = r"```(\w+)_begin\s*(.*?)\s*```(\w+)_end"
-            matches = re.findall(pattern, text, re.DOTALL)
+            matches = re.findall(self.pattern, text, re.DOTALL)
+            if partial and matches:
+                matches = matches[-1:]
             v_dict = {}
             for match in matches:
                 if match[0] == match[2]:
                     v_dict[match[0]] = match[1].strip()
-            return v_dict
+            if v_dict:
+                return v_dict
+            if partial:
+                return None
+            return text
         except Exception as e:
             raise OutputParserException(error=e, llm_output=text) from e
 
@@ -47,3 +56,7 @@ class DevopsCodeGeneratorOutputParser(BaseCumulativeTransformOutputParser[Any]):
             The parsed JSON object.
         """
         return self.parse_result([Generation(text=text)])
+
+    @property
+    def _type(self) -> str:
+        return "devops_code_generator_output_parser"
