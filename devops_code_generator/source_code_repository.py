@@ -105,6 +105,15 @@ class SourceCodeRepository(CodeRepository):
                 language = "javascript"
                 dependency_manifest = "package.json"
                 dependency_management_tool = "npm"
+            elif "pyproject.toml" in files and "poetry.lock" in files:
+                logger.info(
+                    "pyproject.toml and poetry.lock files found in root of"
+                    " source code repository directory path %s",
+                    path,
+                )
+                language = "python"
+                dependency_manifest = "pyproject.toml"
+                dependency_management_tool = "poetry"
             elif "requirements.txt" in files:
                 logger.info(
                     "requirements.txt found in root of"
