@@ -3,7 +3,7 @@ This module contains the create_find_middleware_chain function which
 returns the find_middleware_chain corresponding to the language and dependency management tool
 """
 
-import os
+from importlib.resources import files
 from langchain_core.prompts import ChatPromptTemplate
 from devops_code_generator_library.devops_code_generator_output_parser import (
     DevopsCodeGeneratorOutputParser,
@@ -16,21 +16,13 @@ def create_find_middleware_chain(llm, language, dependency_management_tool):
     corresponding to the language and dependency management tool
     """
 
-    # pylint: disable=R0801
-    middlewares_path = os.path.join(
-        "devops_code_generator_library",
-        "templates",
-        "find_middleware",
-        language,
-        dependency_management_tool,
-    )
+    templates_package = "devops_code_generator_library.templates.find_middleware"
 
-    with open(
-        file=os.path.join(middlewares_path, "middlewares.txt"),
-        mode="r",
-        encoding="utf-8",
-    ) as file:
-        middlewares = file.read()
+    middlewares = (
+        files(templates_package)
+        .joinpath(language, dependency_management_tool, "middlewares.txt")
+        .read_text(encoding="utf-8")
+    )
 
     return (
         ChatPromptTemplate.from_messages(

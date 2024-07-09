@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "devops-code-generator-library"
-version = "1.20240709.2"
+version = "1.20240709.3"
 description = "Library containing common python modules for all devops code generators like CI/CD pipeline code generator, infrastructure code generator, database code generator, virtual machine image code generator, deployment code generator, container image code generator, container deployment code generator, etc."
 authors = ["Sagar Velankar <sagar.velankar@gmail.com>"]
 license = "MIT"
