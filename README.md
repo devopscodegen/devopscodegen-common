@@ -10,4 +10,4 @@
 [![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/devops-code-generators/devops-code-generator-library)](https://github.com/devops-code-generators/devops-code-generator-library/issues)
 
 # devops-code-generator-library
-Library containing common python modules for all devops code generators like pipeline code generator, infrastructure code generator, database code generator, deployment code generator, container image code generator, container deployment code generator, etc.
+Library containing common python modules for all devops code generators like CI/CD pipeline code generator, infrastructure code generator, database code generator, virtual machine image code generator, deployment code generator, container image code generator, container deployment code generator, etc.
