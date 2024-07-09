@@ -4,7 +4,7 @@ which is parent class for all Devops code generator classes
 """
 
 
-class DevopsCodeGenerator:
+class DevopsCodeGeneratorBase:
     """
     A class representing DevopsCodeGenerator
     which is parent class for all Devops code generator classes

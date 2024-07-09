@@ -11,7 +11,7 @@ Usage:
 
 import os
 import logging
-from devops_code_generator.code_repository import CodeRepository
+from devops_code_generator_library.code_repository import CodeRepository
 
 
 class SourceCodeRepository(CodeRepository):

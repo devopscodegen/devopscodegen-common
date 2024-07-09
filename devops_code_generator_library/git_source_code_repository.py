@@ -7,7 +7,7 @@ import os
 import tempfile
 import logging
 import git
-from devops_code_generator.source_code_repository import SourceCodeRepository
+from devops_code_generator_library.source_code_repository import SourceCodeRepository
 
 
 class GitSourceCodeRepository(SourceCodeRepository):
