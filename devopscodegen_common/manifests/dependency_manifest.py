@@ -2,10 +2,10 @@
 Dependency Manifest
 """
 
-from enum import Enum
+from enum import StrEnum
 
 
-class DependencyManifest(Enum):
+class DependencyManifest(StrEnum):
     """
     Dependency Manifest
     """

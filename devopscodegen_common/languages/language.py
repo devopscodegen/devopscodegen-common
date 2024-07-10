@@ -2,10 +2,10 @@
 Language
 """
 
-from enum import Enum
+from enum import StrEnum
 
 
-class Language(Enum):
+class Language(StrEnum):
     """
     Language
     """

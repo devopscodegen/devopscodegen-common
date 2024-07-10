@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "devopscodegen-common"
-version = "1.20240710.5"
+version = "1.20240710.6"
 description = "Common python modules for all devops code generators like CI/CD pipeline code generator, infrastructure code generator, database code generator, virtual machine image code generator, deployment code generator, container image code generator, container deployment code generator, etc."
 authors = ["Sagar Velankar <sagar.velankar@gmail.com>"]
 license = "MIT"

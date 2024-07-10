@@ -2,10 +2,10 @@
 Dependency management tool
 """
 
-from enum import Enum
+from enum import StrEnum
 
 
-class DependencyManagementTool(Enum):
+class DependencyManagementTool(StrEnum):
     """
     Dependency management tool
     """
