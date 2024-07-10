@@ -45,6 +45,7 @@ class SourceCodeRepository(CodeRepository):
         dependency_manifest: DependencyManifest = None,
         dependency_manifest_content: str = None,
         dependency_management_tool: DependencyManagementTool = None,
+        middleware: str = None,
     ):
         """
         Initializes a new instance of the SourceCodeRepository class.
@@ -61,6 +62,7 @@ class SourceCodeRepository(CodeRepository):
         self.set_dependency_manifest(dependency_manifest)
         self.set_dependency_manifest_content(dependency_manifest_content)
         self.set_dependency_management_tool(dependency_management_tool)
+        self.set_middleware(middleware)
 
     def get_language(self) -> Language:
         """Get language"""
@@ -95,6 +97,14 @@ class SourceCodeRepository(CodeRepository):
     ):
         """Set dependency management tool"""
         self.dependency_management_tool = dependency_management_tool
+
+    def get_middleware(self) -> str:
+        """Get middleware"""
+        return self.middleware
+
+    def set_middleware(self, middleware: str = None):
+        """Set middleware"""
+        self.middleware = middleware
 
     # pylint: disable=W0718
     def fnd_lang_dep_mfst_dep_mgmt_tool(self):

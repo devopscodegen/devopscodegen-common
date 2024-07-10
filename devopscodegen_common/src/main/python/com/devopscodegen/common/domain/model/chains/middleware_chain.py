@@ -6,11 +6,8 @@ returns the find_middleware_chain corresponding to the language and dependency m
 from importlib.resources import files
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import Runnable
-from devopscodegen_common.src.main.python.com.devopscodegen.common.domain.model.languages.language import (
-    Language,
-)
-from devopscodegen_common.src.main.python.com.devopscodegen.common.domain.model.tools.dependency_management_tool import (
-    DependencyManagementTool,
+from devopscodegen_common.src.main.python.com.devopscodegen.common.domain.model.repositories.source_code_repository import (
+    SourceCodeRepository,
 )
 from devopscodegen_common.src.main.python.com.devopscodegen.common.domain.model.output_parsers.devopscodegen_output_parser import (
     DevopscodegenOutputParser,
@@ -26,14 +23,12 @@ class MiddlewareChain:
     def __init__(
         self,
         llm: Runnable = None,
-        language: Language = None,
-        dependency_management_tool: DependencyManagementTool = None,
+        source_code_repository: SourceCodeRepository = None,
         chain=None,
         templates_package: str = "devopscodegen_common.src.main.resources.templates.middlewares",
     ):
         self.set_llm(llm)
-        self.set_language(language)
-        self.set_dependency_management_tool(dependency_management_tool)
+        self.set_source_code_repository(source_code_repository)
         self.set_chain(chain)
         self.set_templates_package(templates_package)
 
@@ -45,23 +40,15 @@ class MiddlewareChain:
         """Set llm"""
         self.llm = llm
 
-    def get_language(self) -> Language:
-        """Get language"""
-        return self.language
+    def get_source_code_repository(self) -> SourceCodeRepository:
+        """Get source code repository"""
+        return self.source_code_repository
 
-    def set_language(self, language: Language = None):
-        """Set language"""
-        self.language = language
-
-    def get_dependency_management_tool(self) -> DependencyManagementTool:
-        """Get dependency management tool"""
-        return self.dependency_management_tool
-
-    def set_dependency_management_tool(
-        self, dependency_management_tool: DependencyManagementTool = None
+    def set_source_code_repository(
+        self, source_code_repository: SourceCodeRepository = None
     ):
-        """Set dependency management tool"""
-        self.dependency_management_tool = dependency_management_tool
+        """Set source code repository"""
+        self.source_code_repository = source_code_repository
 
     def get_chain(self) -> Runnable:
         """Get chain"""
@@ -82,8 +69,10 @@ class MiddlewareChain:
     def create_chain(self) -> Runnable:
         """Create middleware chain"""
         llm = self.get_llm()
-        language = self.get_language()
-        dependency_management_tool = self.get_dependency_management_tool()
+        language = self.get_source_code_repository().get_language()
+        dependency_management_tool = (
+            self.get_source_code_repository().get_dependency_management_tool()
+        )
         templates_package = self.get_templates_package()
 
         middlewares = (
