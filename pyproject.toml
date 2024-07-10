@@ -1,17 +1,20 @@
 [tool.poetry]
-name = "devops-code-generator-library"
-version = "1.20240709.3"
-description = "Library containing common python modules for all devops code generators like CI/CD pipeline code generator, infrastructure code generator, database code generator, virtual machine image code generator, deployment code generator, container image code generator, container deployment code generator, etc."
+name = "devopscodegen-common"
+version = "1.20240710.1"
+description = "Common python modules for all devops code generators like CI/CD pipeline code generator, infrastructure code generator, database code generator, virtual machine image code generator, deployment code generator, container image code generator, container deployment code generator, etc."
 authors = ["Sagar Velankar <sagar.velankar@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-repository = "https://github.com/devops-code-generators/devops-code-generator-library"
+repository = "https://github.com/devopscodegen/devopscodegen-common"
 keywords = ["devops", "code-generator", "devops-platform", "langchain", "genai"]
 classifiers = [
     "Development Status :: 1 - Planning",
     "Intended Audience :: Developers",
     "Operating System :: OS Independent",
     "Topic :: Software Development :: Code Generators",
+]
+packages = [
+    { include = "src" }
 ]
 
 [tool.poetry.dependencies]

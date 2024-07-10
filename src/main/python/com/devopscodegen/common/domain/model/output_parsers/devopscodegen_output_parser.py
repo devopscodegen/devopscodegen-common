@@ -11,7 +11,7 @@ from langchain_core.output_parsers import BaseCumulativeTransformOutputParser
 from langchain_core.outputs import Generation
 
 
-class DevopsCodeGeneratorOutputParser(BaseCumulativeTransformOutputParser[Any]):
+class DevopscodegenOutputParser(BaseCumulativeTransformOutputParser[Any]):
     """
     Parse a list of model Generations into a python dictionary
     """

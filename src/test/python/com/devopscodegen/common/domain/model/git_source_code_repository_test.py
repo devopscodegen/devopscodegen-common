@@ -6,7 +6,10 @@
 import unittest
 import shutil
 from unittest.mock import patch
-from devops_code_generator_library.git_source_code_repository import GitSourceCodeRepository
+
+from src.main.python.com.devopscodegen.common.domain.model.repositories.git_source_code_repository import (
+    GitSourceCodeRepository,
+)
 
 
 class TestGitSourceCodeRepository(unittest.TestCase):

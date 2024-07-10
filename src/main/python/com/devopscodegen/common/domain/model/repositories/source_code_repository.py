@@ -11,7 +11,18 @@ Usage:
 
 import os
 import logging
-from devops_code_generator_library.code_repository import CodeRepository
+from src.main.python.com.devopscodegen.common.domain.model.repositories.code_repository import (
+    CodeRepository,
+)
+from src.main.python.com.devopscodegen.common.domain.model.languages.language import (
+    Language,
+)
+from src.main.python.com.devopscodegen.common.domain.model.manifests.dependency_manifest import (
+    DependencyManifest,
+)
+from src.main.python.com.devopscodegen.common.domain.model.tools.dependency_management_tool import (
+    DependencyManagementTool,
+)
 
 
 class SourceCodeRepository(CodeRepository):
@@ -26,7 +37,15 @@ class SourceCodeRepository(CodeRepository):
         __init__(self, path=None): Initializes a new instance of SourceCodeRepository.
     """
 
-    def __init__(self, path=None):
+    # pylint: disable=R0913
+    def __init__(
+        self,
+        path: str = None,
+        language: Language = None,
+        dependency_manifest: DependencyManifest = None,
+        dependency_manifest_content: str = None,
+        dependency_management_tool: DependencyManagementTool = None,
+    ):
         """
         Initializes a new instance of the SourceCodeRepository class.
 
@@ -38,40 +57,42 @@ class SourceCodeRepository(CodeRepository):
         if hasattr(super(), "__init__"):
             super().__init__(path)
         self.path = path
-        self.set_language(None)
-        self.set_dependency_manifest(None)
-        self.set_dependency_manifest_content(None)
-        self.set_dependency_management_tool(None)
+        self.set_language(language)
+        self.set_dependency_manifest(dependency_manifest)
+        self.set_dependency_manifest_content(dependency_manifest_content)
+        self.set_dependency_management_tool(dependency_management_tool)
 
-    def get_language(self):
+    def get_language(self) -> Language:
         """Get language"""
         return self.language
 
-    def set_language(self, language=None):
+    def set_language(self, language: Language = None):
         """Set language"""
         self.language = language
 
-    def get_dependency_manifest(self):
+    def get_dependency_manifest(self) -> DependencyManagementTool:
         """Get dependency manifest"""
         return self.dependency_manifest
 
-    def set_dependency_manifest(self, dependency_manifest=None):
+    def set_dependency_manifest(self, dependency_manifest: DependencyManifest = None):
         """Set dependency manifest"""
         self.dependency_manifest = dependency_manifest
 
-    def get_dependency_manifest_content(self):
+    def get_dependency_manifest_content(self) -> str:
         """Get dependency manifest content"""
         return self.dependency_manifest_content
 
-    def set_dependency_manifest_content(self, dependency_manifest_content=None):
+    def set_dependency_manifest_content(self, dependency_manifest_content: str = None):
         """Set dependency manifest content"""
         self.dependency_manifest_content = dependency_manifest_content
 
-    def get_dependency_management_tool(self):
+    def get_dependency_management_tool(self) -> DependencyManagementTool:
         """Get dependency management tool"""
         return self.dependency_management_tool
 
-    def set_dependency_management_tool(self, dependency_management_tool=None):
+    def set_dependency_management_tool(
+        self, dependency_management_tool: DependencyManagementTool = None
+    ):
         """Set dependency management tool"""
         self.dependency_management_tool = dependency_management_tool
 
@@ -94,35 +115,35 @@ class SourceCodeRepository(CodeRepository):
                     "pom.xml found in root of source code repository directory path %s",
                     path,
                 )
-                language = "java"
-                dependency_manifest = "pom.xml"
-                dependency_management_tool = "apache_maven"
+                language = Language.JAVA
+                dependency_manifest = DependencyManifest.POM_XML
+                dependency_management_tool = DependencyManagementTool.APACHE_MAVEN
             elif "package.json" in files:
                 logger.info(
                     "package.json found in root of source code repository directory path %s",
                     path,
                 )
-                language = "javascript"
-                dependency_manifest = "package.json"
-                dependency_management_tool = "npm"
+                language = Language.JAVASCRIPT
+                dependency_manifest = DependencyManifest.PACKAGE_JSON
+                dependency_management_tool = DependencyManagementTool.NPM
             elif "pyproject.toml" in files and "poetry.lock" in files:
                 logger.info(
                     "pyproject.toml and poetry.lock files found in root of"
                     " source code repository directory path %s",
                     path,
                 )
-                language = "python"
-                dependency_manifest = "pyproject.toml"
-                dependency_management_tool = "poetry"
+                language = Language.PYTHON
+                dependency_manifest = DependencyManifest.PYPROJECT_TOML
+                dependency_management_tool = DependencyManagementTool.POETRY
             elif "requirements.txt" in files:
                 logger.info(
                     "requirements.txt found in root of"
                     " source code repository directory path %s",
                     path,
                 )
-                language = "python"
-                dependency_manifest = "requirements.txt"
-                dependency_management_tool = "pip"
+                language = Language.PYTHON
+                dependency_manifest = DependencyManifest.REQUIREMENTS_TXT
+                dependency_management_tool = DependencyManagementTool.PIP
             self.set_language(language)
             self.set_dependency_manifest(dependency_manifest)
             if dependency_manifest:
