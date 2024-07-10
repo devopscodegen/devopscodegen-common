@@ -6,10 +6,10 @@ returns the find_middleware_chain corresponding to the language and dependency m
 from importlib.resources import files
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import Runnable
-from devopscodegen_common.src.main.python.com.devopscodegen.common.domain.model.repositories.source_code_repository import (
+from devopscodegen_common.repositories.source_code_repository import (
     SourceCodeRepository,
 )
-from devopscodegen_common.src.main.python.com.devopscodegen.common.domain.model.output_parsers.devopscodegen_output_parser import (
+from devopscodegen_common.output_parsers.devopscodegen_output_parser import (
     DevopscodegenOutputParser,
 )
 
@@ -25,7 +25,7 @@ class MiddlewareChain:
         llm: Runnable = None,
         source_code_repository: SourceCodeRepository = None,
         chain=None,
-        templates_package: str = "devopscodegen_common.src.main.resources.templates.middlewares",
+        templates_package: str = "devopscodegen_common.templates.middlewares",
     ):
         self.set_llm(llm)
         self.set_source_code_repository(source_code_repository)

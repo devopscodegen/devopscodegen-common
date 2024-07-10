@@ -11,16 +11,16 @@ Usage:
 
 import os
 import logging
-from devopscodegen_common.src.main.python.com.devopscodegen.common.domain.model.repositories.code_repository import (
+from devopscodegen_common.repositories.code_repository import (
     CodeRepository,
 )
-from devopscodegen_common.src.main.python.com.devopscodegen.common.domain.model.languages.language import (
+from devopscodegen_common.languages.language import (
     Language,
 )
-from devopscodegen_common.src.main.python.com.devopscodegen.common.domain.model.manifests.dependency_manifest import (
+from devopscodegen_common.manifests.dependency_manifest import (
     DependencyManifest,
 )
-from devopscodegen_common.src.main.python.com.devopscodegen.common.domain.model.tools.dependency_management_tool import (
+from devopscodegen_common.tools.dependency_management_tool import (
     DependencyManagementTool,
 )
 
