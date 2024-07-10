@@ -6,13 +6,13 @@ returns the find_middleware_chain corresponding to the language and dependency m
 from importlib.resources import files
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import Runnable
-from src.main.python.com.devopscodegen.common.domain.model.languages.language import (
+from devopscodegen_common.src.main.python.com.devopscodegen.common.domain.model.languages.language import (
     Language,
 )
-from src.main.python.com.devopscodegen.common.domain.model.tools.dependency_management_tool import (
+from devopscodegen_common.src.main.python.com.devopscodegen.common.domain.model.tools.dependency_management_tool import (
     DependencyManagementTool,
 )
-from src.main.python.com.devopscodegen.common.domain.model.output_parsers.devopscodegen_output_parser import (
+from devopscodegen_common.src.main.python.com.devopscodegen.common.domain.model.output_parsers.devopscodegen_output_parser import (
     DevopscodegenOutputParser,
 )
 

@@ -3,7 +3,7 @@ This module defines a CodeRepository class representing version controlled code 
 extending the base Repository class.
 """
 
-from src.main.python.com.devopscodegen.common.domain.model.repositories.repository import (
+from devopscodegen_common.src.main.python.com.devopscodegen.common.domain.model.repositories.repository import (
     Repository,
 )
 

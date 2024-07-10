@@ -7,7 +7,7 @@ import unittest
 import shutil
 from unittest.mock import patch
 
-from src.main.python.com.devopscodegen.common.domain.model.repositories.git_source_code_repository import (
+from devopscodegen_common.src.main.python.com.devopscodegen.common.domain.model.repositories.git_source_code_repository import (
     GitSourceCodeRepository,
 )
 
